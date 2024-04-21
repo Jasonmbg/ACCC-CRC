@@ -46,7 +46,7 @@ WES data
 
 packages = c(
     "edgeR",
-    "progeny"
+    "progeny",
     "dorothea",
     "decoupleR",
     "circlize",
