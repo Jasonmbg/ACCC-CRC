@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Efstathios-Iason Vlachavas">
+<meta name="dcterms.date" content="2024-04-21">
+
+<title>ACCC-CRC WES Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="ACCC_CRC_WES_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ACCC_CRC_WES_files/libs/quarto-html/quarto.js"></script>
+<script src="ACCC_CRC_WES_files/libs/quarto-html/popper.min.js"></script>
+<script src="ACCC_CRC_WES_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ACCC_CRC_WES_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ACCC_CRC_WES_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ACCC_CRC_WES_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="ACCC_CRC_WES_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="ACCC_CRC_WES_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ACCC_CRC_WES_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ACCC_CRC_WES_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="ACCC_CRC_WES_files/libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#accc-crc-dataset-wes-analysis-overview" id="toc-accc-crc-dataset-wes-analysis-overview" class="nav-link active" data-scroll-target="#accc-crc-dataset-wes-analysis-overview"><span class="header-section-number">1</span> ACCC-CRC dataset WES analysis overview</a>
+  <ul class="collapse">
+  <li><a href="#reproduce-the-analysis-of-the-rnaseq-data-from-the-main-accc-crc-dataset-for-the-manuscript." id="toc-reproduce-the-analysis-of-the-rnaseq-data-from-the-main-accc-crc-dataset-for-the-manuscript." class="nav-link" data-scroll-target="#reproduce-the-analysis-of-the-rnaseq-data-from-the-main-accc-crc-dataset-for-the-manuscript."><span class="header-section-number">1.0.1</span> Reproduce the analysis of the rnaseq data from the main ACCC-CRC dataset for the manuscript.</a></li>
+  <li><a href="#create-an-oncoprint-with-selected-intogen-crc-driver-genes-figure-1" id="toc-create-an-oncoprint-with-selected-intogen-crc-driver-genes-figure-1" class="nav-link" data-scroll-target="#create-an-oncoprint-with-selected-intogen-crc-driver-genes-figure-1"><span class="header-section-number">1.0.2</span> Create an oncoprint with selected IntOGen CRC driver genes (<strong>Figure 1</strong>)</a></li>
+  <li><a href="#code-for-supplementary-plot-regarding-relative-contribution-of-cosmic-mutational-signatures-supplementary-figure-1" id="toc-code-for-supplementary-plot-regarding-relative-contribution-of-cosmic-mutational-signatures-supplementary-figure-1" class="nav-link" data-scroll-target="#code-for-supplementary-plot-regarding-relative-contribution-of-cosmic-mutational-signatures-supplementary-figure-1"><span class="header-section-number">1.0.3</span> Code for Supplementary plot regarding relative contribution of COSMIC Mutational Signatures {<strong>Supplementary Figure 1</strong>}</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ACCC-CRC WES Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Efstathios-Iason Vlachavas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2024-04-21</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="accc-crc-dataset-wes-analysis-overview" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> ACCC-CRC dataset WES analysis overview</h1>
+<section id="reproduce-the-analysis-of-the-rnaseq-data-from-the-main-accc-crc-dataset-for-the-manuscript." class="level3" data-number="1.0.1">
+<h3 data-number="1.0.1" class="anchored" data-anchor-id="reproduce-the-analysis-of-the-rnaseq-data-from-the-main-accc-crc-dataset-for-the-manuscript."><span class="header-section-number">1.0.1</span> Reproduce the analysis of the rnaseq data from the main ACCC-CRC dataset for the manuscript.</h3>
+<p>Initially start by loading the necessary R packages, along with importing the clinical information.</p>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ComplexHeatmap)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(InteractiveComplexHeatmap)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(circlize)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="create-an-oncoprint-with-selected-intogen-crc-driver-genes-figure-1" class="level3" data-number="1.0.2">
+<h3 data-number="1.0.2" class="anchored" data-anchor-id="create-an-oncoprint-with-selected-intogen-crc-driver-genes-figure-1"><span class="header-section-number">1.0.2</span> Create an oncoprint with selected IntOGen CRC driver genes (<strong>Figure 1</strong>)</h3>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dr_here</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load the matrix with the 54 altered driver genes-</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,<span class="st">"Input_Oncoplot_ACCC_CRC.csv"</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>dt2 <span class="ot">&lt;-</span> dt <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="st">"hugo"</span>) <span class="co"># here</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># na= character()</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> dt2</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>mat[<span class="fu">is.na</span>(mat)] <span class="ot">=</span> <span class="st">""</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">=</span> <span class="fu">as.matrix</span>(mat)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># approach of total alteration frequency counting of the selected 54 genes</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># keep caution for the counting process to remove any entries in the value column with NA !!</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>dat_count <span class="ot">&lt;-</span> dt <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="sc">-</span>hugo) <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(name, hugo) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(hugo) <span class="sc">|&gt;</span> <span class="fu">count</span>(hugo, name, <span class="at">sort=</span>T) <span class="sc">|&gt;</span> </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(hugo, <span class="at">sort=</span>T)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>pdat_updated <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="st">"CRC.ACCC.Clinical.Total.Merged.MSI.Mut.Info.RNASeq.tsv"</span>))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># here; just on this case we remove *manually* the CRC_ACCC_02 sample in order to project the results for the WES data {as we have collectively all clinical info for all profiled samples from both omic layers}</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>pdat.ord <span class="ot">&lt;-</span> pdat_updated[<span class="fu">order</span>(pdat_updated<span class="sc">$</span>MSI_status, <span class="at">decreasing =</span> <span class="cn">TRUE</span>),] <span class="sc">|&gt;</span> </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(Sample_Name,MSI_status) <span class="sc">|&gt;</span> </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="sc">!</span>Sample_Name<span class="sc">==</span><span class="st">"CRC_ACCC_02"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">column_to_rownames</span>(<span class="st">"Sample_Name"</span>) </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>s.ord <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">rownames</span>(pdat.ord))</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>col_2 <span class="ot">=</span><span class="fu">c</span>(<span class="st">"missense"</span> <span class="ot">=</span> <span class="st">"#008000"</span>, <span class="st">"stop_gained"</span><span class="ot">=</span><span class="st">"black"</span>, <span class="st">"splice_site"</span><span class="ot">=</span><span class="st">"brown"</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Gain"</span><span class="ot">=</span><span class="st">"red"</span>,<span class="st">"Loss"</span><span class="ot">=</span><span class="st">"blue"</span>,<span class="st">"frameshift_insert"</span><span class="ot">=</span><span class="st">"yellow"</span>,<span class="st">"LOH"</span><span class="ot">=</span><span class="st">"#00FFFF"</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>         <span class="st">"frameshift_del"</span><span class="ot">=</span><span class="st">"orange"</span>,<span class="st">"inframe_deletion"</span><span class="ot">=</span><span class="st">"khaki2"</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>         <span class="st">"start_lost"</span><span class="ot">=</span><span class="st">"purple"</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="do">#########################################################################################</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># implement the following scheme to map alterations to distinct colors/rectangle combos!!</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>alter_fun_2 <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">background =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> <span class="st">"#CCCCCC"</span>, <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># black</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">stop_gained =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), </span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"stop_gained"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># purple</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">start_lost =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), </span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"start_lost"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># brown</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">splice_site =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), </span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"splice_site"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># yellow</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">frameshift_insert =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">*</span><span class="fl">0.45</span>, </span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"frameshift_insert"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>  <span class="co"># cyan</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>  <span class="at">LOH =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">*</span><span class="fl">0.5</span>, </span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"LOH"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>  <span class="co"># orange</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>  <span class="at">frameshift_del =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">*</span><span class="fl">0.45</span>, </span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"frameshift_del"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  <span class="co"># khaki2</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  <span class="at">inframe_deletion =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">*</span><span class="fl">0.4</span>, </span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"inframe_deletion"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="co"># green</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>  <span class="at">missense =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">*</span><span class="fl">0.7</span>, h<span class="sc">*</span><span class="fl">0.8</span>, </span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"missense"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>  }, </span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  <span class="co"># red</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>  <span class="at">Gain =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">*</span><span class="fl">0.5</span>, </span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"Gain"</span>], <span class="at">col =</span> <span class="cn">NA</span>))</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  }, </span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>  <span class="co"># blue</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  <span class="at">Loss =</span> <span class="cf">function</span>(x, y, w, h) {</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid.rect</span>(x, y, w<span class="sc">-</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"mm"</span>), h<span class="sc">*</span><span class="fl">0.5</span>, </span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> col_2[<span class="st">"Loss"</span>], <span class="at">col =</span> <span class="cn">NA</span>)) </span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>column_title <span class="ot">=</span> <span class="st">"OncoPrint {ACCC CRC cohort IntoGen: 54 Common Scored Genes}"</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################################################</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="co"># also load the estimated mutational spectrum from prior analyses; also check the related Zenodo material</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>mut.spect.final <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="st">"MutSpec_TypeOccurence_ACCC_FinalSamples_Oncoplot.tsv"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="fu">column_to_rownames</span>(<span class="st">"ACCC_sample_ID"</span>) <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>))</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>mutSpect.scaled <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">apply</span>(mut.spect.final, <span class="dv">1</span>, <span class="cf">function</span>(x) x<span class="sc">/</span><span class="fu">sum</span>(x)))</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>mutSpect.ord <span class="ot">&lt;-</span> mutSpect.scaled[<span class="fu">rownames</span>(pdat.ord),]</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="co"># set the complete heatmap annotation object</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>ha <span class="ot">&lt;-</span> <span class="fu">HeatmapAnnotation</span>(<span class="at">cbar =</span> <span class="fu">anno_oncoprint_barplot</span>(),</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>      <span class="at">MSI_Status_RNASeq =</span> <span class="fu">ifelse</span>(pdat.ord[[<span class="dv">1</span>]] <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"MSI"</span>,<span class="st">"MSS"</span>),</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>      <span class="at">col=</span><span class="fu">list</span>(<span class="at">MSI_Status_RNASeq =</span> <span class="fu">structure</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"MSI"</span>, <span class="st">"MSS"</span>), <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>))),</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>      <span class="at">Mutational_Spectrum =</span> <span class="fu">anno_barplot</span>(mutSpect.ord, </span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>      <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">3</span>,<span class="dv">6</span>)), <span class="at">bar_width =</span> <span class="dv">1</span>, <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="st">"cm"</span>)))</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>lgd <span class="ot">=</span> <span class="fu">Legend</span>(<span class="at">title =</span> <span class="st">"Mutational_Spectrum"</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"C&gt;A"</span>,<span class="st">"C&gt;G"</span>,<span class="st">"C&gt;T"</span>,<span class="st">"T&gt;A"</span>,<span class="st">"T&gt;C"</span>,<span class="st">"T&gt;G"</span>), </span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>             <span class="at">legend_gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">3</span>,<span class="dv">6</span>)))</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>mat2 <span class="ot">&lt;-</span> mat[dat_count<span class="sc">$</span>hugo,<span class="fu">rownames</span>(pdat.ord)]</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="co"># set the final oncoplot</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>ht <span class="ot">=</span> <span class="fu">oncoPrint</span>(mat2,<span class="at">alter_fun =</span> alter_fun_2, <span class="at">col =</span> col_2, <span class="at">top_annotation =</span> ha, </span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>               <span class="at">row_order =</span> dat_count<span class="sc">$</span>hugo, <span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">7</span>),</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>               <span class="at">column_title =</span> column_title, <span class="at">column_order=</span>s.ord,</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>               <span class="at">remove_empty_columns =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="fu">draw</span>(ht, <span class="at">heatmap_legend_list =</span> lgd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="ACCC_CRC_WES_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="200"></p>
+</div>
+</div>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<p>See in Full Screen</p>
+</button>
+<div id="exampleModal" class="modal fade" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered p-8" style="max-width: 90%">
+<div class="modal-content">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ACCC_CRC_WES_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="code-for-supplementary-plot-regarding-relative-contribution-of-cosmic-mutational-signatures-supplementary-figure-1" class="level3" data-number="1.0.3">
+<h3 data-number="1.0.3" class="anchored" data-anchor-id="code-for-supplementary-plot-regarding-relative-contribution-of-cosmic-mutational-signatures-supplementary-figure-1"><span class="header-section-number">1.0.3</span> Code for Supplementary plot regarding relative contribution of COSMIC Mutational Signatures {<strong>Supplementary Figure 1</strong>}</h3>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sig.contrib <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,<span class="st">"Signature_contributions_ACCC.csv"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sig.contrib <span class="ot">&lt;-</span> sig.contrib <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>Proposed_Etiology) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="sc">-</span>Signature)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use the imported clinical information object from above chunk</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>clin.dat <span class="ot">&lt;-</span> pdat_updated <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(Sample_Name, MSI_status)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>msi_accc <span class="ot">&lt;-</span> <span class="fu">as.character</span>(clin.dat<span class="sc">$</span>MSI_status)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>msi_accc_upd <span class="ot">&lt;-</span> <span class="fu">recode</span>(msi_accc, <span class="st">"0"</span> <span class="ot">=</span> <span class="st">"MSS"</span>, <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"MSI"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>clin.dat<span class="sc">$</span>MSI_status <span class="ot">&lt;-</span> msi_accc_upd</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>xx<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">left_join</span>(<span class="at">x=</span>sig.contrib, <span class="at">y=</span>clin.dat, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"name"</span><span class="ot">=</span><span class="st">"Sample_Name"</span>))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>xx<span class="fl">.1</span> <span class="ot">&lt;-</span> xx<span class="fl">.1</span> <span class="sc">|&gt;</span> <span class="fu">arrange</span>(MSI_status)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="do">## how to *manually* group respectively the assigned COSMIC SBS signatures (https://cancer.sanger.ac.uk/signatures/sbs/)::</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">## SBS6, SBS20, SBS21, SBS26 and SBS15 -&gt; MSI -&gt; one color</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="do">## SBS1 + SBS5 -&gt; keep them as separate signatures but use similar colors to show common-partial-etiologies -&gt; clock-like association (mainly because the etiologies are different although both associate with age)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="do">## SBS10 a + b -&gt; Group together</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="do">## SBS93 + SBS94 since the etiology is unknown (and probably different) -&gt; separate but similar C;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="do">## check this-below is the most optimal with ordering and color specification:</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>xx<span class="fl">.2</span> <span class="ot">&lt;-</span> xx<span class="fl">.1</span> <span class="sc">|&gt;</span> <span class="fu">distinct</span>(name,MSI_status)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> a <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(xx<span class="fl">.2</span><span class="sc">$</span>MSI_status <span class="sc">==</span> <span class="st">"MSS"</span>, <span class="st">"black"</span>, <span class="st">"red"</span>) <span class="co"># this to also separate-order samples with MSI/MSS samples</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># This might differ slightly from the original supplementary figure, as here to enhance differences and improve explainability, samples are also colored + ordered based on MSI status;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(xx<span class="fl">.1</span>, <span class="fu">aes</span>(<span class="at">fill=</span>Signature, <span class="at">y=</span>value, <span class="at">x=</span><span class="fu">factor</span>(name,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"CRC_ACCC_09"</span>,<span class="st">"CRC_ACCC_15"</span>,<span class="st">"CRC_ACCC_17"</span>,<span class="st">"CRC_ACCC_21"</span>,<span class="st">"CRC_ACCC_24"</span>,<span class="st">"CRC_ACCC_01"</span>,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>           <span class="st">"CRC_ACCC_03"</span>,<span class="st">"CRC_ACCC_04"</span>,<span class="st">"CRC_ACCC_05"</span>,<span class="st">"CRC_ACCC_06"</span>,<span class="st">"CRC_ACCC_07"</span>,<span class="st">"CRC_ACCC_08"</span>,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>           <span class="st">"CRC_ACCC_11"</span>,<span class="st">"CRC_ACCC_12"</span>,<span class="st">"CRC_ACCC_13"</span>,<span class="st">"CRC_ACCC_14"</span>,<span class="st">"CRC_ACCC_16"</span>,<span class="st">"CRC_ACCC_18"</span>,</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>           <span class="st">"CRC_ACCC_19"</span>,<span class="st">"CRC_ACCC_20"</span>,<span class="st">"CRC_ACCC_22"</span>,<span class="st">"CRC_ACCC_23"</span>,<span class="st">"CRC_ACCC_25"</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>           <span class="st">"CRC_ACCC_26"</span>,<span class="st">"CRC_ACCC_27"</span>,<span class="st">"CRC_ACCC_28"</span>,<span class="st">"CRC_ACCC_29"</span>)))) <span class="sc">+</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">'stack'</span>, <span class="at">stat=</span><span class="st">'identity'</span>) <span class="sc">+</span> </span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_wsj</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">colour =</span> a)) <span class="sc">+</span> </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"COSMIC SBS Signatures"</span>) <span class="sc">+</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkseagreen2"</span>, <span class="st">"gold4"</span>,<span class="st">"gold4"</span>,<span class="st">"bisque"</span>,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"gold2"</span>, <span class="st">"cyan"</span>, <span class="st">"coral"</span>, <span class="st">"gold2"</span>, <span class="st">"gold2"</span>,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"#bdb76b"</span>, <span class="st">"gold2"</span>, <span class="st">"aquamarine4"</span>, <span class="st">"chartreuse4"</span>,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"brown"</span>,<span class="st">"darkgray"</span>, <span class="st">"darkseagreen"</span>, <span class="st">"darkgray"</span>,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"darkgray"</span>, <span class="st">"gold2"</span>, <span class="st">"darkviolet"</span>,<span class="st">"darkorchid1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="ACCC_CRC_WES_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+<section id="finally-we-proceed-with-presenting-a-condensed-view-of-the-scored-actionable-variants-in-the-accc-crc-cohort-at-the-patient-resolution-via-an-enhanced-oncoprint-view-this-is-also-a-major-part-of-the-final-figure-5-panel" class="level4" data-number="1.0.3.1">
+<h4 data-number="1.0.3.1" class="anchored" data-anchor-id="finally-we-proceed-with-presenting-a-condensed-view-of-the-scored-actionable-variants-in-the-accc-crc-cohort-at-the-patient-resolution-via-an-enhanced-oncoprint-view-this-is-also-a-major-part-of-the-final-figure-5-panel"><span class="header-section-number">1.0.3.1</span> Finally we proceed with presenting a <em>condensed</em> view of the <em>scored + actionable</em> variants in the ACCC-CRC cohort at the patient resolution, via an <em>enhanced</em> oncoprint view; This is also a major part of the final <strong>Figure 5</strong> panel;</h4>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on the main text and relative section, here we sought to define the actionable alterations per patient cluster, and we ultimately assign them also to available MASTER biomarker baskets: </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>out.CMS.ACCC <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,<span class="st">"Out_RES_DT_CMScaller_ACCC_28samples.tsv"</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>out.CMS.ACCC.sel <span class="ot">&lt;-</span> out.CMS.ACCC <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ACCC_Sample_ID, prediction)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>TMB_info <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,<span class="st">"ACCC_CRC_TMB_INFO.txt"</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>cluster_info <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,<span class="st">"HCPC_FactoMineR_RES_ACCC_CRC.tsv"</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>cluster_info_merge <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(cluster_info, out.CMS.ACCC.sel, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"Sample_ID"</span><span class="ot">=</span><span class="st">"ACCC_Sample_ID"</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>cluster_info_merge_TMB <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(cluster_info_merge, TMB_info, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"Sample_ID"</span><span class="ot">=</span><span class="st">"CRC_ACCC_Patient_ID"</span>))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>cluster_info_sel <span class="ot">&lt;-</span> cluster_info_merge_TMB <span class="sc">|&gt;</span> <span class="fu">select</span>(Sample_ID, MSI_status, Condition, clust, prediction, <span class="st">`</span><span class="at">Mutational_Burden (Mutations/Mb)</span><span class="st">`</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>cluster_info_ord <span class="ot">&lt;-</span> cluster_info_sel[<span class="fu">order</span>(cluster_info_sel<span class="sc">$</span>clust, </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                    cluster_info_sel<span class="sc">$</span>MSI_status, cluster_info_sel<span class="sc">$</span>Condition),]</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># extra line to remove here patient ACCC_CRC_02 to have the finalized complex Heatmap {as in the overall clinical information, we kept ACCC_CRC_02, due to the RNASeq profiling data presence}</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>cluster_info_ord <span class="ot">&lt;-</span> cluster_info_ord <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>Sample_ID<span class="sc">==</span><span class="st">"CRC_ACCC_02"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># import MASTER baskets prior-knowledge information {for further information check also here: https://www.nct-heidelberg.de/en/the-nct/newsroom/news/details/dkfz-nct-dktk-master-program-handbook-on-the-use-of-genomic-data-in-precision-oncology.html}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># the following is available supplementary file from the following publication: https://doi.org/10.1158/2159-8290.cd-21-0126</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>master.baskets <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,<span class="st">"MASTER.Baskets.biomarkers.SuppTableS5.2022.txt"</span>))</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># filter for profiled genes with *SNV/indel* hits</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>master.baskets.sel <span class="ot">&lt;-</span> master.baskets <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Alteration<span class="sc">==</span><span class="st">"SNV/indel"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(Biomarker, Biomarker_basket) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>()</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>master.bim.baskets.unique <span class="ot">&lt;-</span> master.baskets.sel <span class="sc">|&gt;</span> <span class="fu">distinct</span>(Biomarker, Biomarker_basket, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># load both MSI + MSS actionable files to be merged downstream:</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>MSS.OnkoKB.scored.actionable <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="st">"ACCC.CRC.Scored.MSS.OnkoKB.Merged.Paper.StrictFilter.Resistance.Sensitive.tsv"</span>))</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co"># similarly for the MSI samples</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>MSI.OnkoKB.scored.actionable <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"Data"</span>,                                          <span class="st">"ACCC.CRC.Scored.MSI.StrictFilter.Resistance.Sensitive.OnkoKB.Merged.Paper.tsv"</span>))</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co"># to combine all alterations into 1 merged table</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>total.MSI.MSS.actionable <span class="ot">&lt;-</span> <span class="fu">full_join</span>(MSS.OnkoKB.scored.actionable,MSI.OnkoKB.scored.actionable)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Then create the individual heatmap + row annotations as a *complex* visualization means for charting the precision oncology landscape of the ACCC-CRC cohort</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Here for downstream total heatmap analysis</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>master.combo.dat <span class="ot">&lt;-</span> <span class="fu">left_join</span>(total.MSI.MSS.actionable, master.bim.baskets.unique, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"hugo"</span><span class="ot">=</span><span class="st">"Biomarker"</span>))</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Now focus and try to create the additional layers of actionable mutations from OncoKB;</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="do">## For more information please check here: https://www.oncokb.org/</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co"># first supplementary heatmap for Sensitivity hits</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>Annot_Sensitive <span class="ot">&lt;-</span> total.MSI.MSS.actionable <span class="sc">|&gt;</span> <span class="fu">select</span>(Protein_alt, hugo, samples, <span class="st">`</span><span class="at">Highest Sensitive Level</span><span class="st">`</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Feature=</span><span class="fu">str_c</span>(hugo,Protein_alt, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="fu">distinct</span>(Feature, <span class="st">`</span><span class="at">Highest Sensitive Level</span><span class="st">`</span>) <span class="sc">|&gt;</span> <span class="fu">relocate</span>(Feature, <span class="at">.before=</span><span class="st">`</span><span class="at">Highest Sensitive Level</span><span class="st">`</span>) <span class="sc">|&gt;</span> <span class="fu">deframe</span>()</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co"># second-like supplementary heatmap for Resistance hits</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>Annot_Resistance <span class="ot">&lt;-</span> total.MSI.MSS.actionable <span class="sc">|&gt;</span> <span class="fu">select</span>(Protein_alt, hugo, samples, <span class="st">`</span><span class="at">Highest Resistance Level</span><span class="st">`</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Feature=</span><span class="fu">str_c</span>(hugo,Protein_alt, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="fu">distinct</span>(Feature, <span class="st">`</span><span class="at">Highest Resistance Level</span><span class="st">`</span>) <span class="sc">|&gt;</span> <span class="fu">relocate</span>(Feature, <span class="at">.before=</span><span class="st">`</span><span class="at">Highest Resistance Level</span><span class="st">`</span>) <span class="sc">|&gt;</span> <span class="fu">deframe</span>()</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="co"># main heatmap body</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>main_onko_dat <span class="ot">&lt;-</span> total.MSI.MSS.actionable <span class="sc">|&gt;</span> <span class="fu">select</span>(samples, so, Protein_alt, hugo) <span class="sc">|&gt;</span> </span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">Feature=</span><span class="fu">str_c</span>(hugo,Protein_alt, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">|&gt;</span> <span class="fu">select</span>(Feature, samples, so) <span class="sc">|&gt;</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"samples"</span>, <span class="at">values_from=</span><span class="st">"so"</span>,<span class="at">values_fill=</span><span class="cn">NA</span>) <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="st">"Feature"</span>)</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="co"># the heatmap with the MASTER baskets</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>MASTER_baskets_dat <span class="ot">&lt;-</span> master.combo.dat <span class="sc">|&gt;</span> <span class="fu">select</span>(Protein_alt, hugo, Biomarker_basket) <span class="sc">|&gt;</span> </span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">Feature=</span><span class="fu">str_c</span>(hugo,Protein_alt, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Biomarker_basket=</span><span class="fu">as_factor</span>(Biomarker_basket),<span class="at">value=</span><span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(Feature, Biomarker_basket,value) <span class="sc">|&gt;</span> <span class="fu">distinct</span>(Feature, Biomarker_basket, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"Biomarker_basket"</span>, <span class="at">values_from=</span><span class="st">"value"</span>, <span class="at">values_fill=</span><span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="st">"Feature"</span>)</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="do">##########################################################################################</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="co"># extra step for the MASTER baskets-patients matching:</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>out_MASTER_patients <span class="ot">&lt;-</span> master.combo.dat <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(samples, Biomarker_basket) <span class="sc">|&gt;</span> </span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">Samples_group=</span><span class="fu">as_factor</span>(samples),<span class="at">value=</span><span class="dv">1</span>) <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Samples_group,Biomarker_basket,value) <span class="sc">|&gt;</span> <span class="fu">distinct</span>(Samples_group,Biomarker_basket, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"Samples_group"</span>, <span class="at">values_from=</span><span class="st">"value"</span>, <span class="at">values_fill=</span><span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="st">"Biomarker_basket"</span>)</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a><span class="do">##########################################################################################</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="co"># just small modification for the main heatmap body, necessary for visualization purposes</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> main_onko_dat</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>dat[<span class="fu">is.na</span>(dat)] <span class="ot">=</span> <span class="st">""</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">=</span> <span class="fu">as.matrix</span>(dat)</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="co"># here also keep and subset the total clinical dat with only the samples that were identified with at least one actionable alteration</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>final_snames <span class="ot">&lt;-</span> <span class="fu">colnames</span>(mat)</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>pdat_final <span class="ot">&lt;-</span> cluster_info_ord <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Sample_ID<span class="sc">%in%</span>final_snames) <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="st">"Sample_ID"</span>)</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>s.ord <span class="ot">&lt;-</span> <span class="fu">rownames</span>(pdat_final)</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>col_2 <span class="ot">=</span><span class="fu">c</span>(<span class="st">"missense_variant"</span> <span class="ot">=</span> <span class="st">"#008000"</span>, <span class="st">"stop_gained"</span><span class="ot">=</span><span class="st">"black"</span>, <span class="st">"splice_site_variant"</span><span class="ot">=</span><span class="st">"brown"</span>,</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>         <span class="st">"frameshift_elongation"</span><span class="ot">=</span><span class="st">"yellow"</span>,<span class="st">"frameshift_truncation"</span><span class="ot">=</span><span class="st">"orange"</span>,</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>         <span class="st">"start_lost"</span><span class="ot">=</span><span class="st">"purple"</span>)</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>column_title <span class="ot">=</span> <span class="st">"OncoPrint {ACCC-CRC cohort: 17 patients}"</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>cl_head <span class="ot">=</span> <span class="st">"ACCC-CRC clusters: MSI/MSS OncoKB scored actionable mutations"</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>alter_fun_3 <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>    <span class="at">background =</span> <span class="fu">alter_graphic</span>(<span class="st">"rect"</span>, <span class="at">fill =</span> <span class="st">"#CCCCCC"</span>),   </span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">stop_gained =</span> <span class="fu">alter_graphic</span>(<span class="st">"rect"</span>, <span class="at">fill =</span> col_2[<span class="st">"stop_gained"</span>]),</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">splice_site_variant =</span> <span class="fu">alter_graphic</span>(<span class="st">"rect"</span>, <span class="at">height =</span> <span class="fl">0.6</span>, <span class="at">fill =</span> col_2[<span class="st">"splice_site_variant"</span>]),</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">frameshift_elongation =</span> <span class="fu">alter_graphic</span>(<span class="st">"rect"</span>, <span class="at">fill =</span> col_2[<span class="st">"frameshift_elongation"</span>]),</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">frameshift_truncation =</span> <span class="fu">alter_graphic</span>(<span class="st">"rect"</span>, <span class="at">height =</span> <span class="fl">0.33</span>, </span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> col_2[<span class="st">"frameshift_truncation"</span>]),</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>    <span class="at">missense_variant =</span> <span class="fu">alter_graphic</span>(<span class="st">"rect"</span>, <span class="at">height =</span> <span class="fl">0.33</span>, <span class="at">fill =</span> col_2[<span class="st">"missense_variant"</span>]),</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>    <span class="at">start_lost =</span> <span class="fu">alter_graphic</span>(<span class="st">"rect"</span>, <span class="at">height =</span> <span class="fl">0.33</span>, <span class="at">fill =</span> col_2[<span class="st">"start_lost"</span>])</span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>ha_add <span class="ot">=</span> <span class="fu">HeatmapAnnotation</span>(</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cluster_ID =</span> pdat_final[[<span class="dv">3</span>]],</span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">MSI_status =</span> <span class="fu">ifelse</span>(pdat_final[[<span class="dv">1</span>]] <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"MSI"</span>,<span class="st">"MSS"</span>),</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mutation_group =</span> pdat_final[[<span class="dv">2</span>]],</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>    <span class="at">CMS_subtype =</span> pdat_final[[<span class="dv">4</span>]],</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>    <span class="at">TMB =</span> <span class="fu">ifelse</span>(pdat_final[[<span class="dv">5</span>]] <span class="sc">&gt;=</span> <span class="dv">10</span>, <span class="st">"TMB-High"</span>, <span class="st">"TMB-Low"</span>),</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    <span class="at">border =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">list</span>(<span class="at">Mutation_group =</span> <span class="fu">structure</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"BRAF_mut"</span>, <span class="st">"KRAS_mut"</span>, </span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GNAS_mut"</span>, <span class="st">"NRAS_mut"</span>, <span class="st">"RAS_RAF_GNAS_wt"</span>, <span class="st">"RAS_RAF_GNAS_mut"</span>), </span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"yellow"</span>, <span class="st">"red"</span>, <span class="st">"black"</span>, <span class="st">"green"</span>, <span class="st">"orange"</span>, <span class="st">"cyan"</span>)),</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">MSI_status =</span> <span class="fu">structure</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"MSI"</span>,<span class="st">"MSS"</span>), <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"black"</span>)),</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cluster_ID =</span> <span class="fu">structure</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"3"</span>),<span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"blue"</span>)),</span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>    <span class="at">CMS_subtype =</span> <span class="fu">structure</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"CMS1"</span>,<span class="st">"CMS2"</span>,<span class="st">"CMS3"</span>,<span class="st">"CMS4"</span>),                                   <span class="fu">c</span>(<span class="st">"orange"</span>,<span class="st">"blue"</span>,<span class="st">"purple"</span>,<span class="st">"darkgreen"</span>)),</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>    <span class="at">TMB =</span> <span class="fu">structure</span>(<span class="at">names=</span><span class="fu">c</span>(<span class="st">"TMB-High"</span>, <span class="st">"TMB-Low"</span>), <span class="fu">c</span>(<span class="st">"magenta"</span>,<span class="st">"yellow"</span>)))) </span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>col_letters <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"1"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"purple"</span>, <span class="st">"3A"</span> <span class="ot">=</span> <span class="st">"orange"</span>, <span class="st">"4"</span><span class="ot">=</span><span class="st">"pink"</span>)</span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>col_letters_3 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"1"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"NA"</span><span class="ot">=</span><span class="st">"white"</span>)</span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="do">############################################################################################</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="do">############# The extra MASTER-patients-baskets assignment heatmap #########################</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="do">############################################################################################</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>hmap_MASTER <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(out_MASTER_patients[,s.ord],</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="st">"MB_enrichment"</span>,</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>                     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'0'</span> <span class="ot">=</span> <span class="st">'white'</span>, <span class="st">'1'</span> <span class="ot">=</span> <span class="st">'cornflowerblue'</span>),</span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>                     <span class="at">rect_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">'grey85'</span>),</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cluster_rows =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>                     <span class="at">show_row_dend =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>                     <span class="at">row_title =</span> <span class="st">'MASTER_baskets'</span>,</span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>                     <span class="at">row_title_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">11</span>, <span class="at">fontface =</span> <span class="st">'bold'</span>),</span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>                     <span class="at">row_title_rot =</span> <span class="dv">90</span>,</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>                     <span class="at">row_title_side =</span> <span class="st">"left"</span>,</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>                     <span class="at">show_row_names =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>                     <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">12</span>),</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>                     <span class="at">row_names_side =</span> <span class="st">'left'</span>,</span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>                     <span class="at">row_dend_width =</span> <span class="fu">unit</span>(<span class="dv">35</span>, <span class="st">'mm'</span>),</span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cluster_columns =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>                     <span class="at">show_column_dend =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>                     <span class="at">column_title_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">14</span>, <span class="at">fontface =</span> <span class="st">'bold'</span>),</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>                     <span class="at">column_title_rot =</span> <span class="dv">0</span>,</span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>                     <span class="at">show_column_names =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>                     <span class="at">show_heatmap_legend =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>                     <span class="at">clustering_distance_rows =</span> <span class="st">'euclidean'</span>,</span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>                     <span class="at">clustering_method_rows =</span> <span class="st">'ward.D2'</span>)</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a><span class="do">### final part of creating the enhanced oncoprint figure:</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a><span class="do">### combine both *supplementary sensitivity/specificity* heatmaps from above into a merged row annotation</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>row_ha <span class="ot">&lt;-</span> <span class="fu">rowAnnotation</span>(<span class="at">OncoKB_Sens=</span>Annot_Sensitive[<span class="fu">rownames</span>(mat)], <span class="at">OncoKB_Res =</span> Annot_Resistance[<span class="fu">rownames</span>(mat)], <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">18</span>),</span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a><span class="at">col =</span> <span class="fu">list</span>(<span class="at">OncoKB_Sens =</span> <span class="fu">structure</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3A"</span>, <span class="st">"4"</span>), <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"purple"</span>, <span class="st">"orange"</span>, <span class="st">"pink"</span>)), <span class="at">OncoKB_Res =</span> <span class="fu">structure</span>(<span class="at">names=</span><span class="fu">c</span>(<span class="st">"1"</span>),<span class="fu">c</span>(<span class="st">"black"</span>))))</span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>ht_main <span class="ot">=</span> <span class="fu">oncoPrint</span>(mat[,s.ord], <span class="at">alter_fun =</span> alter_fun_3, <span class="at">col =</span> col_2, <span class="at">top_annotation =</span> ha_add,</span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="at">column_title =</span> cl_head, <span class="at">column_order=</span>s.ord,<span class="at">show_column_names =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a><span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">7</span>), <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">12</span>), </span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="at">remove_empty_columns =</span> <span class="cn">FALSE</span>, <span class="at">right_annotation =</span> row_ha) <span class="co"># just removes the right barplot with the occurrence of alterations</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>ht_list <span class="ot">=</span> ht_main <span class="sc">%v%</span> hmap_MASTER</span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a><span class="fu">draw</span>(ht_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ACCC_CRC_WES_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1344"></p>
+<figcaption class="figure-caption">Oncoplot with actionable variants (SVRACAS score ≥0.5) and annotated in the context of sensitivity (OncoKB_Sens 1-4) or resistance (OncoKB_Res R1-2) to a targeted therapy (https://www.oncokb.org/levels) in any tumor entity.</figcaption>
+</figure>
+</div>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># due to quatro/html display constraints, please check if this also works through the  InteractiveComplexHeatmap R package to create a separate interactive version:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># htShiny(ht_list)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># htShiny(ht_list, save = "test_ht_list")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+&nbsp;
+<hr>
+<p style="text-align: center;">A work by <a href="https://github.com/Jasonmbg/">Efstathios-Iason Vlachavas</a></p>
+<p style="text-align: center;"><span style="color: #808080;"><em>svlachavas@eie.gr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://orcid.org/0000-0002-3432-9053" class="fa fa-orcid"></a>
+    <a href="https://www.linkedin.com/in/efstathios-iason-vlachavas-164b6085/" class="fa fa-linkedin"></a>
+    <a href="https://github.com/Jasonmbg/" class="fa fa-github"></a>
+</p>
+
+&nbsp;
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

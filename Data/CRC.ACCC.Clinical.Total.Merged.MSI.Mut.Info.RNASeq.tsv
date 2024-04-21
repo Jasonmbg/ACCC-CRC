@@ -1,0 +1,29 @@
+Sample_Name	Condition	Patient_Barcode	MSI_status	age	sex	tumor_location	operation_type	T_status	histological_subtype	N_status	M_status	R_status	tumor_size	OS (years)	adjuvant_therapy	neo_adjuvant_therapy	follow up	LOS
+CRC_ACCC_01	KRAS_mut	231	0	53	F	left_sided	sigmoid colectomy	T2	adenoCa_int_diff	N0	M0	R0	4x3	ALIVE	NO	NO	ALIVE	NA
+CRC_ACCC_02	NA	235	0	86	F	left_sided	APR	T3	adenoCa_NOS	N0	M0	R1	"5X2,5"	DEAD	NO	NO	DEAD	NA
+CRC_ACCC_03	RAS_RAF_GNAS_wt	244	0	59	M	left_sided	LAR/metastesectomy of liver	T3	adenoCa_NOS	N2a	M1	R0	"4,5X4"	ALIVE	YES	NO	ALIVE	NA
+CRC_ACCC_04	RAS_RAF_GNAS_wt	246	0	49	F	left_sided	LAR	T3	adenoCa_NOS	N0	M0	R0	9X5	DEAD	NO	NO	DEAD	NA
+CRC_ACCC_05	GNAS_mut	250	0	72	F	right_sided	right colectomy	T3	adenoCa_NOS	N0	M0	R0	"3,4X2,6"	ALIVE	NO	NO	ALIVE	NA
+CRC_ACCC_06	RAS_RAF_GNAS_mut	252	0	85	F	right_sided	right colectomy	T1	adenoCa_NOS	N0	M0	R0	"3,3X1,7"	DEAD	NO	NO	DEAD	NA
+CRC_ACCC_07	KRAS_mut	255	0	69	M	right_sided	right colectomy	T3	adenoCa_NOS	N0	M0	R0	"4X3,4"	ALIVE	NO	NO	ALIVE	NA
+CRC_ACCC_08	RAS_RAF_GNAS_wt	258	0	73	M	right_sided	right colectomy	T3	adenoCa_NOS	N2a	M0	R0	"5,5X4,7"	ALIVE	YES	NO	ALIVE	NA
+CRC_ACCC_09	RAS_RAF_GNAS_mut	259	1	81	F	right_sided	right colectomy	T2	adenoCa_NOS	N1B	M0	R0	6X5	DEAD	YES	NO	DEAD	NA
+CRC_ACCC_11	BRAF_mut	268	0	69	M	left_sided	sigmoid colectomy	T2	adenoCa_NOS	N0	M0	R0	"4,2X3,6"	DEAD	NO	NO	DEAD	NA
+CRC_ACCC_12	RAS_RAF_GNAS_wt	270	0	68	M	left_sided	subtotal colectomy	T2/T3	adenoCa_NOS	N1A	M0	R0	"2,5X2 and 10,5x7,6"	ALIVE	YES	NO	ALIVE	NA
+CRC_ACCC_13	KRAS_mut	272	0	69	F	right_sided	right colectomy	T2	adenoCa_NOS	N0	M0	R0	"3,4X3,2"	ALIVE	NO	NO	ALIVE	NA
+CRC_ACCC_14	RAS_RAF_GNAS_wt	292	0	83	M	left_sided	LAR	T3	LVI_adenoCa_int_diff	N2a	M0	R1	4x3	ALIVE	YES	NO	ALIVE	16 days
+CRC_ACCC_15	RAS_RAF_GNAS_mut	294	1	70	M	right_sided	right colectomy	T3	src_mucinous_adenoCa	N0	M0	R0	5x3	ALIVE	NO	NO	ALIVE	7 days
+CRC_ACCC_16	RAS_RAF_GNAS_wt	295	0	79	F	right_sided	right colectomy	T4a	adenoCa_NOS	N0	M0	R1	"2,3x1,3"	ALIVE	YES	NO	lymphoma	7 days
+CRC_ACCC_17	BRAF_mut	299	1	93	M	right_sided	right colectomy	T4a	adenoCa_low_diff	N0	M0	R1	"5,5x 3.5"	DEAD	NO	NO	death 04/20	8 days
+CRC_ACCC_18	KRAS_mut	306	0	66	F	left_sided	LAR	T3	adenoCa_low_diff	N0	NA	R0	5.3 x 7	ALIVE	NO	NO	ALIVE	10 days
+CRC_ACCC_19	NRAS_mut	307	0	79	M	right_sided	right colectomy	T3	desmin_adenoCa	N0	M0	R0	"3,5 x 2.8"	DEAD	NO	NO	death 09/20	10 days
+CRC_ACCC_20	GNAS_mut	308	0	82	F	left_sided	Hartmanns procedure	T4a	adenoCa_NOS	N0	M0	R0	5 x 4	ALIVE	YES	NO	ALIVE	15 days
+CRC_ACCC_21	RAS_RAF_GNAS_wt	310	1	55	M	left_sided	LAR	T3	adenoCa_low_diff	Nx	M0	R0	"4x3,5"	ALIVE	YES	NO	ALIVE	9 days
+CRC_ACCC_22	RAS_RAF_GNAS_wt	314	0	93	M	right_sided	right colectomy	T3	adenoCa_NOS	N0	M0	R0	"4 x 2,5"	ALIVE	NO	NO	ALIVE	6 days
+CRC_ACCC_23	RAS_RAF_GNAS_mut	317	0	77	M	right_sided	right colectomy	T3	adenoCa_low_diff	N0	M0	R0	"4x 2,5"	ALIVE	NO	NO	ALIVE	10 days
+CRC_ACCC_24	BRAF_mut	319	1	66	F	right_sided	right colectomy	T3	adenoCa_NOS	N1c	M0	R0	6x6	ALIVE	YES	NO	ALIVE	8days
+CRC_ACCC_25	RAS_RAF_GNAS_wt	320	0	79	M	right_sided	subtotal colectomy	T3	adenoCa_NOS	N1a	M0	R0	"6,5 x4,5"	ALIVE	YES	NO	ALIVE	12 days
+CRC_ACCC_26	RAS_RAF_GNAS_wt	321	0	66	F	left_sided	APR	T3	adenoCa_NOS	N0	M0	R0	5 X3	ALIVE	NO	NO	ALIVE	14 days
+CRC_ACCC_27	KRAS_mut	322	0	79	F	left_sided	left colectomy	T3	adenoCa_NOS	N1a	M0	R0	"1,7 X 1,6"	DEAD	YES	NO	death 11/2020	9 days
+CRC_ACCC_28	BRAF_mut	323	0	90	M	right_sided	right colectomy	T3	adenoCa_NOS	N0	M0	R0	"3X2,3"	ALIVE	NO	NO	ALIVE	8 days
+CRC_ACCC_29	RAS_RAF_GNAS_wt	324	0	70	F	left_sided	APR	T4b	adenoCa_NOS	N0	M0	R0	"2,2x2"	ALIVE	YES	YES	ALIVE	10days

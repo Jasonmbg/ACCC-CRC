@@ -1,0 +1,35 @@
+Patient_Barcode	age	sex	tumor_location	operation_type	T_status	histological_subtype	N_status	M_status	R_status	tumor_size	OS (years)	adjuvant_therapy	neo_adjuvant_therapy	follow up	LOS
+292	83	M	sigmoid_colon	LAR	T3	LVI_adenoCa_int_diff	N2a	M0	R1	4x3	ALIVE	YES	NO	ALIVE	16 days
+294	70	M	ascending_colon	right colectomy	T3	src_mucinous_adenoCa	N0	M0	R0	5x3	ALIVE	NO	NO	ALIVE	7 days
+295	79	F	ascending_colon	right colectomy	T4a	adenoCa_NOS	N0	M0	R1	"2,3x1,3"	ALIVE	YES	NO	lymphoma	7 days
+299	93	M	ascending_colon	right colectomy	T4a	adenoCa_low_diff	N0	M0	R1	"5,5x 3.5"	DEAD 	NO	NO	death 04/20	8 days
+306	66	F	rectum	LAR	T3	adenoCa_low_diff	N0	NA	R0	5.3 x 7	ALIVE	NO	NO	ALIVE	10 days
+307	79	M	caecum	right colectomy	T3	desmin_adenoCa	N0	M0	R0	"3,5 x 2.8"	DEAD 	NO	NO	death 09/20	10 days
+308	82	F	sigmoid_colon	Hartmanns procedure	T4a	adenoCa_NOS	N0	M0	R0	5 x 4	ALIVE	YES	NO	ALIVE	15 days
+310	55	M	sigmoid_colon	LAR	T3	adenoCa_low_diff	Nx	M0	R0	"4x3,5"	ALIVE	YES	NO	ALIVE	9 days
+314	93	M	ascending_colon	right colectomy	T3	adenoCa_NOS	N0	M0	R0	"4 x 2,5"	ALIVE	NO	NO	ALIVE	6 days
+317	77	M	caecum	right colectomy	T3	adenoCa_low_diff	N0	M0	R0	"4x 2,5"	ALIVE	NO	NO	ALIVE	10 days
+320	79	M	right_colon_flexture	subtotal colectomy	T3	adenoCa_NOS	N1a	M0	R0	"6,5 x4,5"	ALIVE	YES	NO	ALIVE	12 days
+321	66	F	rectum	APR	T3	adenoCa_NOS	N0	M0	R0	5 X3	ALIVE	NO	NO	ALIVE	14 days
+322	79	F	descending_colon	left colectomy	T3	adenoCa_NOS	N1a	M0	R0	"1,7 X 1,6"	DEAD	YES	NO	death 11/2020	9 days
+324	70	F	rectum	APR	T4b	adenoCa_NOS	N0	M0	R0	"2,2x2"	ALIVE	YES	YES	ALIVE	10days
+319	66	F	ascending_colon	right colectomy	T3	adenoCa_NOS	N1c	M0	R0	6x6	ALIVE	YES	NO	ALIVE	8days
+323	90	M	right_colon_flexture	right colectomy	T3	adenoCa_NOS	N0	M0	R0	"3X2,3"	ALIVE	NO	NO	ALIVE	8 days
+231	53	F	sigmoid_colon	sigmoid colectomy	T2	adenoCa_int_diff	N0	M0	R0	4x3	ALIVE	NO	NO	ALIVE	NA
+244	59	M	rectum	LAR/metastesectomy of liver	T3	adenoCa_NOS	N2a	M1	R0	"4,5X4"	ALIVE	YES	NO	ALIVE	NA
+246	49	F	rectum	LAR	T3	adenoCa_NOS	N0	M0	R0	9X5	DEAD 	NO	NO	DEAD	NA
+248	60	F	rectum	LAR	T3	adenoCa_high_diff	N2a	M0	R0	"3,3X2,8"	ALIVE	YES	NO	ALIVE	NA
+250	72	F	ascending_colon	right colectomy	T3	adenoCa_NOS	N0	M0	R0	"3,4X2,6"	ALIVE	NO	NO	ALIVE	NA
+252	85	F	ascending_colon	right colectomy	T1	adenoCa_NOS	N0	M0	R0	"3,3X1,7"	DEAD 	NO	NO	DEAD	NA
+255	69	M	caecum	right colectomy	T3	adenoCa_NOS	N0	M0	R0	"4X3,4"	ALIVE	NO	NO	ALIVE	NA
+258	73	M	caecum	right colectomy	T3	adenoCa_NOS	N2a	M0	R0	"5,5X4,7"	ALIVE	YES	NO	ALIVE	NA
+259	81	F	caecum	right colectomy	T2	adenoCa_NOS	N1B	M0	R0	6X5	DEAD 	YES	NO	DEAD	NA
+260	73	F	ascending_colon	right colectomy	T1	adenoCa_NOS	N0	M0	R0	"2,2X1,6"	ALIVE	NO	NO	ALIVE	NA
+261	61	F	sigmoid_colon	sigmoid colectomy	T3	adenoCa_low_diff	N0	M0	R0	"3X3,5"	ALIVE	NO	NO	ALIVE	NA
+263	77	M	rectum	LAR	T2	adenoCa_NOS	N0	M0	R0	"2X1,8X1,5"	ALIVE	NO	NO	ALIVE	NA
+267	62	F	sigmoid_colon	sigmoid colectomy	T3	adenoCa_NOS	N1B	M0	R0	"5,8X4"	ALIVE	YES	NO	ALIVE	NA
+268	69	M	sigmoid_colon	sigmoid colectomy	T2	adenoCa_NOS	N0	M0	R0	"4,2X3,6"	DEAD 	NO 	NO	DEAD	NA
+270	68	M	rectum_descending_colon	subtotal colectomy	T2/T3	adenoCa_NOS	N1A	M0	R0	"2,5X2 and 10,5x7,6"	ALIVE	YES	NO	ALIVE	NA
+271	54	M	caecum	right colectomy	T2	adenoCa_NOS	N0	M0	R0	5X3	ALIVE	NO	NO	ALIVE	NA
+272	69	F	caecum	right colectomy	T2	adenoCa_NOS	N0	M0	R0	"3,4X3,2"	ALIVE	NO	NO	ALIVE	NA
+235	86	F	rectum	APR	T3	adenoCa_NOS	N0	M0	R1	"5X2,5"	DEAD 	NO	NO	DEAD	NA
